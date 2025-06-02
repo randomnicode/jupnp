@@ -18,7 +18,7 @@
     <basedirRoot>../..</basedirRoot>
     <maven.deploy.skip>true</maven.deploy.skip>
     <pax.logging.version>2.2.7</pax.logging.version>
-    <pax.web.version>8.0.25</pax.web.version>
+    <pax.web.version>9.0.16</pax.web.version>
   </properties>
 
   <dependencies>
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>org.eclipse.platform</groupId>
       <artifactId>org.eclipse.osgi</artifactId>
-      <version>3.17.200</version>
+      <version>3.19.0</version>
     </dependency>
 
     <!-- Configuration Admin -->
@@ -47,7 +47,7 @@
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.service.component</artifactId>
-      <version>1.5.0</version>
+      <version>1.5.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.eclipse.platform</groupId>
       <artifactId>org.eclipse.equinox.event</artifactId>
-      <version>1.4.300</version>
+      <version>1.7.0</version>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>

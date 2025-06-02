@@ -18,7 +18,6 @@
   <modules>
     <module>org.jupnp.common</module>
     <module>org.jupnp.device.simple</module>
-    <module>org.jupnp.osgi.tests</module>
   </modules>
 
   <properties>

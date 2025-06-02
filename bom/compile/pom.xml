@@ -20,8 +20,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
       <version>${servlet.api.version}</version>
     </dependency>
     <dependency>
@@ -35,8 +35,8 @@
       <version>${jetty.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlet</artifactId>
+      <groupId>org.eclipse.jetty.ee10</groupId>
+      <artifactId>jetty-ee10-servlet</artifactId>
       <version>${jetty.version}</version>
     </dependency>
     <dependency>
@@ -47,12 +47,17 @@
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>osgi.annotation</artifactId>
-      <version>${osgi.version}</version>
+      <version>8.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
-      <artifactId>osgi.cmpn</artifactId>
-      <version>${osgi.version}</version>
+      <artifactId>org.osgi.service.component.annotations</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.service.metatype.annotations</artifactId>
+      <version>1.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

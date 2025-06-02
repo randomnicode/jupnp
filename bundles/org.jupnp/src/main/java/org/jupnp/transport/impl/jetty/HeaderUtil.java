@@ -18,18 +18,15 @@ package org.jupnp.transport.impl.jetty;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
-import org.eclipse.jetty.client.api.ContentProvider;
-import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.client.api.Response;
+import org.eclipse.jetty.client.Request;
+import org.eclipse.jetty.client.Response;
 import org.eclipse.jetty.http.HttpField;
-import org.eclipse.jetty.http.HttpFields;
+import org.eclipse.jetty.io.Content;
 import org.jupnp.http.Headers;
 
 /**
@@ -51,12 +48,7 @@ public class HeaderUtil {
      * @param headers to be added to the {@link Request}
      */
     public static void add(final Request request, final Headers headers) {
-        final HttpFields httpFields = request.getHeaders();
-        for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
-            for (final String value : entry.getValue()) {
-                httpFields.add(entry.getKey(), value);
-            }
-        }
+        request.headers(rh -> headers.forEach(rh::add));
     }
 
     /**
@@ -83,7 +75,7 @@ public class HeaderUtil {
     public static Headers get(final Response response) {
         final Headers headers = new Headers();
         for (HttpField httpField : response.getHeaders()) {
-            headers.add(httpField.getName(), httpField.getValue());
+            headers.put(httpField.getName(), httpField.getValueList());
         }
 
         return headers;
@@ -97,8 +89,8 @@ public class HeaderUtil {
      */
     public static Headers get(final org.eclipse.jetty.server.Request request) {
         final Headers headers = new Headers();
-        for (HttpField httpField : request.getHttpFields()) {
-            headers.add(httpField.getName(), httpField.getValue());
+        for (HttpField httpField : request.getHeaders()) {
+            headers.put(httpField.getName(), httpField.getValueList());
         }
 
         return headers;
@@ -110,19 +102,8 @@ public class HeaderUtil {
      * @param request {@link Request}, must not be null
      * @return {@link Headers}, never {@code null}
      */
-    public static String getContent(final Request request) {
-        final ContentProvider provider = request.getContent();
-
-        final StringBuilder sb = new StringBuilder();
-        for (final ByteBuffer next : provider) {
-            final byte[] bytes = new byte[next.capacity()];
-            next.get(bytes);
-            // Should be "payload"
-            final String content = new String(bytes, StandardCharsets.UTF_8);
-            sb.append(content);
-        }
-
-        return sb.toString();
+    public static String getContent(final Request request) throws IOException {
+        return Content.Source.asString(request.getBody());
     }
 
     /**
@@ -132,18 +113,7 @@ public class HeaderUtil {
      * @return {@link Headers}, never {@code null}
      */
     public static byte[] getBytes(final Request request) {
-        final ContentProvider provider = request.getContent();
-
-        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        for (final ByteBuffer next : provider) {
-            final byte[] bytes = new byte[next.capacity()];
-            next.get(bytes);
-
-            // Should be "payload"
-            bos.write(bytes, 0, bytes.length);
-        }
-
-        return bos.toByteArray();
+        return Content.Source.asByteArrayAsync(request.getBody(), -1).join();
     }
 
     /**
@@ -153,15 +123,16 @@ public class HeaderUtil {
      * @return {@link Headers}, never {@code null}
      */
     public static byte[] getBytes(final org.eclipse.jetty.server.Request request) throws IOException {
-        final InputStream is = request.getInputStream();
+        try (InputStream is = org.eclipse.jetty.server.Request.asInputStream(request)) {
 
-        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        final byte[] bytes = new byte[1024];
-        int len;
-        while (0 < (len = is.read(bytes))) {
-            bos.write(bytes, 0, len);
+            final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            final byte[] bytes = new byte[1024];
+            int len;
+            while (0 < (len = is.read(bytes))) {
+                bos.write(bytes, 0, len);
+            }
+
+            return bos.toByteArray();
         }
-
-        return bos.toByteArray();
     }
 }

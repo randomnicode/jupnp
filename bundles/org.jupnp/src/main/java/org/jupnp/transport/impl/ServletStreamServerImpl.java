@@ -17,7 +17,7 @@ package org.jupnp.transport.impl;
 
 import java.net.InetAddress;
 
-import javax.servlet.Servlet;
+import jakarta.servlet.Servlet;
 
 import org.jupnp.transport.Router;
 import org.jupnp.transport.impl.async.AsyncServlet;
