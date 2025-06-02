@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -45,7 +45,7 @@ public class SAXParser {
 
     public static final URI XML_SCHEMA_NAMESPACE = URI.create("http://www.w3.org/2001/xml.xsd");
     public static final URL XML_SCHEMA_RESOURCE = Thread.currentThread().getContextClassLoader()
-            .getResource("org.jupnp/schemas/xml.xsd");
+            .getResource("org/jupnp/schemas/xml.xsd");
 
     private final XMLReader xr;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -29,6 +29,7 @@ import org.jupnp.model.message.UpnpMessage;
 import org.jupnp.model.message.UpnpRequest;
 import org.jupnp.protocol.ProtocolFactory;
 import org.jupnp.transport.spi.UpnpStream;
+import org.jupnp.util.io.IO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +92,7 @@ public abstract class HttpExchangeUpnpStream extends UpnpStream {
             // Body
             byte[] bodyBytes;
             try (InputStream is = getHttpExchange().getRequestBody()) {
-                bodyBytes = is.readAllBytes();
+                bodyBytes = IO.readAllBytes(is);
             }
 
             logger.trace("Reading request body bytes: {}", bodyBytes.length);

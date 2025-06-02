@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -27,19 +27,15 @@ import org.jupnp.binding.annotations.UpnpStateVariable;
 @UpnpService(serviceId = @UpnpServiceId("MyService"), serviceType = @UpnpServiceType(namespace = "mydomain", value = "MyService"))
 public class MyServiceWithAllowedValueProvider {
 
-    // DOC:PROVIDER
     public static class MyAllowedValueProvider implements AllowedValueProvider {
         @Override
         public String[] getValues() {
             return new String[] { "Foo", "Bar", "Baz" };
         }
     }
-    // DOC:PROVIDER
 
-    // DOC:VAR
     @UpnpStateVariable(allowedValueProvider = MyAllowedValueProvider.class)
     private String restricted;
-    // DOC:VAR
 
     @UpnpAction(out = @UpnpOutputArgument(name = "Out"))
     public String getRestricted() {

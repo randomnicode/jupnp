@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -17,8 +17,7 @@ package example.localservice;
 
 import org.jupnp.binding.annotations.*;
 
-@UpnpService( // DOC:INC1
-        serviceId = @UpnpServiceId("MyService"), serviceType = @UpnpServiceType(namespace = "mydomain", value = "MyService"), stringConvertibleTypes = MyStringConvertible.class)
+@UpnpService(serviceId = @UpnpServiceId("MyService"), serviceType = @UpnpServiceType(namespace = "mydomain", value = "MyService"), stringConvertibleTypes = MyStringConvertible.class)
 public class MyServiceWithEnum {
 
     public enum Color {
@@ -39,4 +38,4 @@ public class MyServiceWithEnum {
     public void setColor(@UpnpInputArgument(name = "In") String color) {
         this.color = Color.valueOf(color);
     }
-} // DOC:INC1
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -35,7 +35,7 @@ public class HttpFetch {
     public static Representation<byte[]> fetchBinary(URL url, int connectTimeoutMillis, int readTimeoutMillis)
             throws IOException {
         return fetch(url, connectTimeoutMillis, readTimeoutMillis,
-                (urlConnection, is) -> new Representation<>(urlConnection, is.readAllBytes()));
+                (urlConnection, is) -> new Representation<>(urlConnection, IO.readAllBytes(is)));
     }
 
     public static Representation<String> fetchString(URL url, int connectTimeoutMillis, int readTimeoutMillis)

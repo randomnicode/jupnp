@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -17,22 +17,6 @@ package example.localservice;
 
 import org.jupnp.binding.annotations.*;
 
-/**
- * Getting output values from a JavaBean
- * <p>
- * Here the action method does not return the output argument value directly,
- * but a JavaBean instance is returned which offers a getter method to obtain
- * the output argument value:
- * </p>
- * <a class="citation" href="javacode://this" style="include:INC1"/>
- * <p>
- * jUPnP will detect that you mapped a getter name in the output argument
- * and that the action method is not <code>void</code>. It now expects that
- * it will find the getter method on the returned JavaBean. If there are
- * several output arguments, all of them have to be mapped to getter methods
- * on the returned JavaBean.
- * </p>
- */
 @UpnpService(serviceId = @UpnpServiceId("SwitchPower"), serviceType = @UpnpServiceType(value = "SwitchPower", version = 1))
 public class SwitchPowerBeanReturn {
 
@@ -54,8 +38,7 @@ public class SwitchPowerBeanReturn {
         return target;
     }
 
-    @UpnpAction( // DOC:INC1
-            name = "GetStatus", out = @UpnpOutputArgument(name = "ResultStatus", getterName = "getWrapped"))
+    @UpnpAction(name = "GetStatus", out = @UpnpOutputArgument(name = "ResultStatus", getterName = "getWrapped"))
     public StatusHolder getStatus() {
         return new StatusHolder(status);
     }
@@ -70,5 +53,5 @@ public class SwitchPowerBeanReturn {
         public boolean getWrapped() {
             return wrapped;
         }
-    } // DOC:INC1
+    }
 }

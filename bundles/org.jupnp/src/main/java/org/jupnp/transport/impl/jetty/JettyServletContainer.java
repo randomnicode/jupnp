@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -65,8 +65,23 @@ public class JettyServletContainer implements ServletContainerAdapter {
         ServerConnector connector = new ServerConnector(server);
         connector.setHost(host);
         connector.setPort(port);
+
+        // Open immediately so we can get the assigned local port
+        connector.open();
+
+        // Only add if open() succeeded
         server.addConnector(connector);
-        return port;
+
+        // starts the connector if the server is started (server starts all connectors when started)
+        if (server.isStarted()) {
+            try {
+                connector.start();
+            } catch (Exception e) {
+                logger.warn("Couldn't start connector: {}", connector, e);
+                throw new RuntimeException("Couldn't start connector", e);
+            }
+        }
+        return connector.getLocalPort();
     }
 
     @Override

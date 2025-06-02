@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -31,6 +31,7 @@ import org.jupnp.model.types.BinHexDatatype;
 import org.jupnp.util.MimeType;
 import org.jupnp.util.SpecificationViolationReporter;
 import org.jupnp.util.URIUtil;
+import org.jupnp.util.io.IO;
 
 /**
  * The metadata of a device icon, might include the actual image data of a local icon.
@@ -90,7 +91,7 @@ public class Icon implements Validatable {
      */
     public Icon(String mimeType, int width, int height, int depth, String uniqueName, InputStream is)
             throws IOException {
-        this(mimeType, width, height, depth, uniqueName, is.readAllBytes());
+        this(mimeType, width, height, depth, uniqueName, IO.readAllBytes(is));
     }
 
     /**
@@ -105,7 +106,7 @@ public class Icon implements Validatable {
 
     /**
      * Use this constructor if your local icon is binary data encoded with <em>BinHex</em>.
-     * 
+     *
      * @param uniqueName Must be a valid URI path segment and unique within the scope of a device.
      * @param binHexEncoded The icon bytes encoded as BinHex.
      */

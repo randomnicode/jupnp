@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -77,7 +77,7 @@ public abstract class DOMParser<D extends DOM> implements ErrorHandler, EntityRe
     private final Logger logger = LoggerFactory.getLogger(DOMParser.class);
 
     public static final URL XML_SCHEMA_RESOURCE = Thread.currentThread().getContextClassLoader()
-            .getResource("org.jupnp/schemas/xml.xsd");
+            .getResource("org/jupnp/schemas/xml.xsd");
 
     protected Source[] schemaSources;
     protected Schema schema;

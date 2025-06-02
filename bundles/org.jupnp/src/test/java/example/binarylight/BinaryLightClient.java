@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2024 4th Line GmbH, Switzerland and others
+ * Copyright (C) 2011-2025 4th Line GmbH, Switzerland and others
  *
  * The contents of this file are subject to the terms of the
  * Common Development and Distribution License Version 1 or later
@@ -50,7 +50,6 @@ public class BinaryLightClient implements Runnable {
         }
     }
 
-    // DOC: REGISTRYLISTENER
     RegistryListener createRegistryListener(final UpnpService upnpService) {
         return new DefaultRegistryListener() {
             final ServiceId serviceId = new UDAServiceId("SwitchPower");
@@ -75,8 +74,6 @@ public class BinaryLightClient implements Runnable {
         };
     }
 
-    // DOC: REGISTRYLISTENER
-    // DOC: EXECUTEACTION
     void executeAction(UpnpService upnpService, Service switchPowerService) {
         ActionInvocation setTargetInvocation = new SetTargetActionInvocation(switchPowerService);
 
@@ -100,15 +97,12 @@ public class BinaryLightClient implements Runnable {
         SetTargetActionInvocation(Service service) {
             super(service.getAction("SetTarget"));
             try {
-
                 // Throws InvalidValueException if the value is of wrong type
                 setInput("NewTargetValue", true);
-
             } catch (InvalidValueException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
             }
         }
     }
-    // DOC: EXECUTEACTION
 }
